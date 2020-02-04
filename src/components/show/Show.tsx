@@ -52,7 +52,7 @@ function createEpisodeRoute(prefix: string, episode: Episode) {
   return `${prefix}/${episode.id}/${episode.name}`;
 }
 
-function episodeToListItem(currentPath: string) {
+export function episodeToListItem(currentPath: string) {
   return (episode: Episode) => ({
     id: episode.id,
     title: createEpisodeName(episode),
