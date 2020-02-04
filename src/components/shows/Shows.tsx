@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Title from "../title/Title";
 import List from "../list/List";
@@ -8,6 +8,8 @@ import { selectShows, selectSearchTerm } from "../../store/showsReducer";
 import { fetchShows } from "../../store/actions";
 import { Show } from "../../types/types";
 import ListItem from "../list/ListItem";
+import { useLocation, useHistory, useParams } from "react-router-dom";
+import queryString from "query-string";
 
 const Wrapper = styled.div`
   max-width: 1200px;
@@ -22,13 +24,26 @@ const Input = styled(DebounceInput)`
 `;
 
 const Shows = () => {
+  const history = useHistory();
+  const { search } = useLocation();
   const dispatch = useDispatch();
   const shows = useSelector(selectShows);
   const searchTerm = useSelector(selectSearchTerm);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(fetchShows(event.target.value));
+    history.push({
+      search: "?q=" + event.target.value
+    });
   };
+
+  useEffect(() => {
+    const { q } = queryString.parse(search);
+
+    if (q) {
+      dispatch(fetchShows(q as string));
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -49,7 +64,7 @@ const Shows = () => {
   );
 };
 
-function createShowRoute(show: Show) {
+export function createShowRoute(show: Show) {
   return `/shows/${encodeURIComponent(show.id)}/${encodeURIComponent(
     show.name
   )}`;

@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Container from "../container/Container";
 import TextImageHeader from "../text-image-header/TextImageHeader";
-import { selectEpisode, selectEpisodes } from "../../store/showsReducer";
+import {
+  selectEpisode,
+  selectEpisodes,
+  selectShow
+} from "../../store/showsReducer";
 import { fetchShow } from "../../store/actions";
 import List from "../list/List";
 import { episodeToListItem } from "../show/Show";
@@ -12,7 +16,8 @@ const Episode = () => {
   const { id, episodeId } = useParams();
   const showId = parseInt(id as string, 10);
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const show = useSelector(selectShow(showId));
+
   const episodes = useSelector(selectEpisodes(showId));
   const episode = useSelector(
     selectEpisode(showId, parseInt(episodeId as string, 10))
@@ -24,7 +29,11 @@ const Episode = () => {
     }
   }, [episode]);
 
-  if (!episode) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [episodeId]);
+
+  if (!episode || !show) {
     return <h1>Loading</h1>;
   }
 
@@ -35,7 +44,7 @@ const Episode = () => {
         summary={episode.summary}
         image={episode.image.original}
       />
-      {episodes && <List items={episodes.map(episodeToListItem(pathname))} />}
+      {episodes && <List items={episodes.map(episodeToListItem(show))} />}
     </Container>
   );
 };

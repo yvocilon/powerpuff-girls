@@ -7,12 +7,12 @@ import { fetchShow } from "../../store/actions";
 import { Episode } from "../../types/types";
 import TextImageHeader from "../text-image-header/TextImageHeader";
 import Container from "../container/Container";
+import { Show as ShowType } from "../../types/types";
+import { createShowRoute } from "../shows/Shows";
 
 const Show = () => {
   const { id } = useParams();
-
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
   const showId = parseInt(id as string, 10);
 
@@ -34,7 +34,7 @@ const Show = () => {
         summary={show.summary}
         image={show.image.original}
       />
-      <List items={episodes.map(episodeToListItem(pathname))} />
+      <List items={episodes.map(episodeToListItem(show))} />
     </Container>
   );
 };
@@ -51,12 +51,12 @@ function createEpisodeRoute(prefix: string, episode: Episode) {
   return `${prefix}/${episode.id}/${episode.name}`;
 }
 
-export function episodeToListItem(currentPath: string) {
+export function episodeToListItem(show: ShowType) {
   return (episode: Episode) => ({
     id: episode.id,
     title: createEpisodeName(episode),
     description: episode.summary,
-    route: createEpisodeRoute(currentPath, episode),
+    route: createEpisodeRoute(createShowRoute(show), episode),
     icon: episode.image?.medium || ""
   });
 }
