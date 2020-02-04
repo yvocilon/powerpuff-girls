@@ -5,7 +5,7 @@ import {
   FETCH_SHOWS_FAILED
 } from "./types";
 import { RootState } from ".";
-import { SearchResponses } from "../types";
+import { SearchResponses, SearchResponse, Episodes } from "../types";
 
 interface State {
   fetching: boolean;
@@ -50,3 +50,15 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
 
 export const selectShows = (state: RootState): SearchResponses =>
   state.shows.items;
+
+export const selectShow = (id: number) => (
+  state: RootState
+): SearchResponse | null => {
+  const show = state.shows.items.filter(item => item.show.id === id);
+
+  if (!show.length) {
+    return null;
+  }
+
+  return show[0];
+};

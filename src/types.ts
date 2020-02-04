@@ -2,6 +2,13 @@ export type SearchResponses = SearchResponse[];
 
 export type Shows = ReadonlyArray<Show>;
 
+export type Episodes = ReadonlyArray<Episode>;
+
+export interface Image {
+  medium: string;
+  original: string;
+}
+
 export interface Show {
   id: number;
   name: string;
@@ -9,10 +16,16 @@ export interface Show {
     average: number;
   };
   summary: string;
-  image: {
-    medium: string;
-    original: string;
-  };
+  image: Image;
+}
+
+export interface Episode {
+  id: number;
+  name: string;
+  season: number;
+  number: number;
+  image: Image;
+  summary: string;
 }
 
 export interface SearchResponse {
