@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 interface ListItem {
   id: number;
   icon: string;
   title: string;
   description: string;
+  route: string;
 }
 
 const Container = styled.div`
@@ -41,17 +43,24 @@ const Title = styled.span`
 
 const Description = styled.span``;
 
-const ListItem = ({ title, description, icon, id }: ListItem) => {
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
+const ListItem = ({ title, description, icon, id, route }: ListItem) => {
   return (
-    <Container>
-      {icon ? <Icon width={150} height="100%" src={icon} /> : <NoImage />}
-      <TextContainer>
-        <Title>{title}</Title>
-        <Description
-          dangerouslySetInnerHTML={{ __html: description }}
-        ></Description>
-      </TextContainer>
-    </Container>
+    <StyledLink to={route}>
+      <Container>
+        {icon ? <Icon width={150} height="100%" src={icon} /> : <NoImage />}
+        <TextContainer>
+          <Title>{title}</Title>
+          <Description
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></Description>
+        </TextContainer>
+      </Container>
+    </StyledLink>
   );
 };
 

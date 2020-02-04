@@ -26,10 +26,10 @@ const App = () => (
     <Provider store={store}>
       <GlobalStyle />
       <Switch>
-        <Route path="/shows/:show/:episode">
+        <Route path="/shows/:id/:name/:episode">
           <Episode />
         </Route>
-        <Route path="/shows/:show">
+        <Route path="/shows/:id/:name">
           <Show />
         </Route>
         <Route path="/shows">

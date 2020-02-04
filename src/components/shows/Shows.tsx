@@ -48,6 +48,12 @@ const Shows = () => {
   );
 };
 
+function createShowRoute(show: Show) {
+  return `/shows/${encodeURIComponent(show.id)}/${encodeURIComponent(
+    show.name
+  )}`;
+}
+
 function sortByScore(prev: SearchResponse, next: SearchResponse) {
   return prev.score > next.score ? -1 : 1;
 }
@@ -57,7 +63,8 @@ function showToListItem(searchResponse: SearchResponse): ListItem {
     id: searchResponse.show.id,
     title: searchResponse.show.name,
     description: searchResponse.show.summary,
-    icon: searchResponse.show.image?.medium || ""
+    icon: searchResponse.show.image?.medium || "",
+    route: createShowRoute(searchResponse.show)
   };
 }
 
