@@ -12,11 +12,13 @@ interface State {
   fetching: boolean;
   error: boolean;
   items: Shows;
+  searchTerm: string;
 }
 
 const initialState: State = {
   fetching: false,
   error: false,
+  searchTerm: "",
   items: []
 };
 
@@ -24,13 +26,16 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
   switch (action.type) {
     case FETCH_SHOWS: {
       return {
+        ...state,
         fetching: true,
         error: false,
-        items: []
+        items: [],
+        searchTerm: action.payload.searchTerm
       };
     }
     case FETCH_SHOWS_SUCCESS: {
       return {
+        ...state,
         fetching: false,
         error: false,
         items: [...action.payload.shows]
@@ -38,6 +43,7 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
     }
     case FETCH_SHOWS_FAILED: {
       return {
+        ...state,
         fetching: false,
         error: true,
         items: []
@@ -51,6 +57,7 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
       // show is already in state
       if (exists) {
         return {
+          ...state,
           error: false,
           fetching: false,
           items: [
@@ -65,6 +72,7 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
 
       // show is not in state => probably because of full reload of the page.
       return {
+        ...state,
         error: false,
         fetching: false,
         items: [...state.items, { ...action.payload.show }]
@@ -75,6 +83,9 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
     }
   }
 }
+
+export const selectSearchTerm = (state: RootState): string =>
+  state.shows.searchTerm;
 
 export const selectShows = (state: RootState): Shows => state.shows.items;
 

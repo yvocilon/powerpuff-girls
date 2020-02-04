@@ -13,7 +13,8 @@ export const fetchShows = (searchTerm: string) => async (
   dispatch: Dispatch
 ) => {
   dispatch({
-    type: FETCH_SHOWS
+    type: FETCH_SHOWS,
+    payload: { searchTerm }
   });
 
   const shows: Shows = await fetch(

@@ -4,7 +4,7 @@ import Title from "../title/Title";
 import List from "../list/List";
 import { useDispatch, useSelector } from "react-redux";
 import { DebounceInput } from "react-debounce-input";
-import { selectShows } from "../../store/showsReducer";
+import { selectShows, selectSearchTerm } from "../../store/showsReducer";
 import { fetchShows } from "../../store/actions";
 import { Show } from "../../types/types";
 import ListItem from "../list/ListItem";
@@ -23,11 +23,10 @@ const Input = styled(DebounceInput)`
 
 const Shows = () => {
   const dispatch = useDispatch();
-  const [searchTerm, setSearchterm] = useState("");
   const shows = useSelector(selectShows);
+  const searchTerm = useSelector(selectSearchTerm);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchterm(event.target.value);
     dispatch(fetchShows(event.target.value));
   };
 

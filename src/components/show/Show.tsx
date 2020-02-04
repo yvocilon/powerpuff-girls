@@ -24,7 +24,6 @@ const Show = () => {
   }, [showId]);
 
   if (!show || !episodes) {
-    console.log(show, episodes);
     return <h1>Loading</h1>;
   }
 
