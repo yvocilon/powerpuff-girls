@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectShow, selectEpisodes } from "../../store/showsReducer";
 import List from "../list/List";
@@ -21,7 +21,7 @@ const Show = () => {
 
   useEffect(() => {
     dispatch(fetchShow(showId));
-  }, [showId]);
+  }, [showId, dispatch]);
 
   if (!show || !episodes) {
     return <h1>Loading</h1>;
@@ -39,7 +39,7 @@ const Show = () => {
   );
 };
 
-function createEpisodeName(episode: Episode) {
+export function createEpisodeName(episode: Episode) {
   return `s${episode.season
     .toString()
     .padStart(2, "0")}e${episode.number.toString().padStart(2, "0")} - ${

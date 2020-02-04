@@ -10,7 +10,7 @@ import {
 } from "../../store/showsReducer";
 import { fetchShow } from "../../store/actions";
 import List from "../list/List";
-import { episodeToListItem } from "../show/Show";
+import { episodeToListItem, createEpisodeName } from "../show/Show";
 
 const Episode = () => {
   const { id, episodeId } = useParams();
@@ -27,7 +27,7 @@ const Episode = () => {
     if (!episode) {
       dispatch(fetchShow(showId));
     }
-  }, [episode]);
+  }, [episode, dispatch, showId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,7 +40,7 @@ const Episode = () => {
   return (
     <Container>
       <TextImageHeader
-        name={episode.name}
+        name={createEpisodeName(episode)}
         summary={episode.summary}
         image={episode.image.original}
       />

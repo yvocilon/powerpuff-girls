@@ -8,7 +8,7 @@ import { selectShows, selectSearchTerm } from "../../store/showsReducer";
 import { fetchShows } from "../../store/actions";
 import { Show } from "../../types/types";
 import ListItem from "../list/ListItem";
-import { useLocation, useHistory, useParams } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 
 const Wrapper = styled.div`
