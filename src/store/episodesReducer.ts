@@ -5,7 +5,7 @@ import {
   FETCH_SHOW_FAILED
 } from "./types";
 import { RootState } from ".";
-import { Episodes } from "../types";
+import { Episodes, Episode } from "../types";
 
 interface State {
   fetching: boolean;
@@ -58,3 +58,8 @@ export function episodesReducer(
 export const selectEpisodes = (showId: number) => (
   state: RootState
 ): Episodes => state.episodes.items[showId];
+
+export const selectEpisode = (showId: number, episodeId: number) => (
+  state: RootState
+): Episode | undefined =>
+  selectEpisodes(showId)(state).find(episode => episode.id === episodeId);

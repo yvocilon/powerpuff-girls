@@ -3,35 +3,13 @@ import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectShow } from "../../store/reducers";
 import styled from "styled-components";
-import Title from "../title/Title";
 import List from "../list/List";
 import { fetchShow } from "../../store/actions";
 import { selectEpisodes } from "../../store/episodesReducer";
 import { Episode } from "../../types";
+import TextImageHeader from "../text-image-header/TextImageHeader";
+import Container from "../container/Container";
 
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px 0;
-`;
-
-const Description = styled.div``;
-
-const Image = styled.img`
-  width: 440px;
-  height: 500px;
-
-  @media (max-width: 768px) {
-    width: 220px;
-    height: 225px;
-  }
-`;
-
-const TextContainer = styled.div``;
-
-const TextImageContainer = styled.div`
-  display: flex;
-`;
 const Show = () => {
   const { id } = useParams();
 
@@ -55,13 +33,11 @@ const Show = () => {
 
   return (
     <Container>
-      <TextImageContainer>
-        <TextContainer>
-          <Title>{show.name}</Title>
-          <Description dangerouslySetInnerHTML={{ __html: show.summary }} />
-        </TextContainer>
-        <Image width={440} height={500} src={show.image.original} />
-      </TextImageContainer>
+      <TextImageHeader
+        name={show.name}
+        summary={show.summary}
+        image={show.image.original}
+      />
       <List items={episodes.map(episodeToListItem(pathname))} />
     </Container>
   );
@@ -76,7 +52,7 @@ function createEpisodeName(episode: Episode) {
 }
 
 function createEpisodeRoute(prefix: string, episode: Episode) {
-  return `${prefix}/episodes/${episode.id}/${episode.name}`;
+  return `${prefix}/${episode.id}/${episode.name}`;
 }
 
 function episodeToListItem(currentPath: string) {

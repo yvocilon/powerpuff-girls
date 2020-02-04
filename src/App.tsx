@@ -26,7 +26,7 @@ const App = () => (
     <Provider store={store}>
       <GlobalStyle />
       <Switch>
-        <Route path="/shows/:id/:name/:episode">
+        <Route path="/shows/:id/:name/:episodeId/:episodeName">
           <Episode />
         </Route>
         <Route path="/shows/:id/:name">
