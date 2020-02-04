@@ -15,7 +15,7 @@ export interface Show {
   };
   summary: string;
   image: Image;
-  score: number;
+  score?: number;
   episodes?: Episodes;
 }
 

@@ -53,7 +53,6 @@ export const fetchShow = (showId: number) => async (dispatch: Dispatch) => {
 function mapShowResponseToShow(response: ShowResponse): Show {
   return {
     ...response,
-    score: 0,
     episodes: response._embedded?.episodes
   };
 }

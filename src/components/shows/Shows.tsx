@@ -56,7 +56,7 @@ function createShowRoute(show: Show) {
 }
 
 function sortByScore(prev: Show, next: Show) {
-  return prev.score > next.score ? -1 : 1;
+  return (prev.score || 0) > (next.score || 0) ? -1 : 1;
 }
 
 function showToListItem(show: Show): ListItem {
