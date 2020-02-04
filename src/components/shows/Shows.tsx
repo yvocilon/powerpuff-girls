@@ -17,6 +17,8 @@ const Wrapper = styled.div`
 
 const Input = styled(DebounceInput)`
   font-size: 20px;
+  width: 100%;
+  margin: 10px 0;
 `;
 
 const Shows = () => {
