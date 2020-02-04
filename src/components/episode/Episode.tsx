@@ -44,7 +44,13 @@ const Episode = () => {
         summary={episode.summary}
         image={episode.image.original}
       />
-      {episodes && <List items={episodes.map(episodeToListItem(show))} />}
+      {episodes && (
+        <List
+          items={episodes
+            .filter(episode => episode.id !== parseInt(episodeId as string, 10))
+            .map(episodeToListItem(show))}
+        />
+      )}
     </Container>
   );
 };
