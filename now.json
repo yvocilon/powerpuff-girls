@@ -2,7 +2,7 @@
   "rewrites": [{ "source": "/show/(.*)", "destination": "/index.html" }],
   "build": {
     "env": {
-      "REACT_APP_API": "http://api.tvmaze.com/"
+      "REACT_APP_API": "https://api.tvmaze.com/"
     }
   }
 }
