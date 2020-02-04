@@ -1,24 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import Title from "../title/Title";
-
-const TextContainer = styled.div``;
-
-const TextImageContainer = styled.div`
-  display: flex;
-`;
-
-const Description = styled.div``;
-
-const Image = styled.img`
-  width: 440px;
-  height: 500px;
-
-  @media (max-width: 768px) {
-    width: 220px;
-    height: 225px;
-  }
-`;
+import {
+  TextImageContainer,
+  Description,
+  Image,
+  TextContainer
+} from "./TextImageHeader.styled";
 
 interface Props {
   name: string;

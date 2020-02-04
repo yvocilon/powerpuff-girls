@@ -1,45 +1,21 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import Title from "../title/Title";
 import List from "../list/List";
 import { useDispatch, useSelector } from "react-redux";
-import { DebounceInput } from "react-debounce-input";
 import { selectShows, selectSearchTerm } from "../../store/showsReducer";
 import { fetchShows } from "../../store/actions";
 import { Show } from "../../types/types";
 import ListItem from "../list/ListItem";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
+import { Wrapper, Input, Suggestion } from "./Shows.styled";
 
-const Wrapper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px;
-`;
-
-const Input = styled(DebounceInput)`
-  font-size: 20px;
-  width: 100%;
-  margin: 10px 0;
-`;
-
-const suggestions = [
+export const suggestions = [
   "Powerpuff Girls",
   "Psych",
   "The Walking Dead",
   "The Witcher"
 ];
-
-const Suggestion = styled.button`
-  background-color: lightblue;
-  border: none;
-  font-size: 18px;
-  padding: 10px;
-  border-radius: 15px;
-  margin: 5px 15px 5px 0;
-  display: inline-block;
-  cursor: pointer;
-`;
 
 const Shows = () => {
   const history = useHistory();
@@ -82,7 +58,9 @@ const Shows = () => {
       />
       <span>Suggestions: </span>
       {suggestions.map(suggestion => (
-        <Suggestion onClick={suggest(suggestion)}>{suggestion}</Suggestion>
+        <Suggestion key={suggestion} onClick={suggest(suggestion)}>
+          {suggestion}
+        </Suggestion>
       ))}
       <List
         items={shows
