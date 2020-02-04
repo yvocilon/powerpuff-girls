@@ -5,25 +5,39 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
 
 import Shows from "./components/shows/Shows";
 import Show from "./components/show/Show";
 import Episode from "./components/episode/Episode";
+import { Provider } from "react-redux";
+import { store } from "./store";
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+  }
+`;
 
 const App = () => (
   <Router>
-    <Switch>
-      <Route path="/shows/:show/:episode">
-        <Episode />
-      </Route>
-      <Route path="/shows/:show">
-        <Show />
-      </Route>
-      <Route path="/shows">
-        <Shows />
-      </Route>
-      <Redirect exact from="/" to="/shows" />
-    </Switch>
+    <Provider store={store}>
+      <GlobalStyle />
+      <Switch>
+        <Route path="/shows/:show/:episode">
+          <Episode />
+        </Route>
+        <Route path="/shows/:show">
+          <Show />
+        </Route>
+        <Route path="/shows">
+          <Shows />
+        </Route>
+        <Redirect exact from="/" to="/shows" />
+      </Switch>
+    </Provider>
   </Router>
 );
 
