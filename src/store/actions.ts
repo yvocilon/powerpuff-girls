@@ -1,8 +1,8 @@
 import {
   FETCH_SHOWS,
   FETCH_SHOWS_SUCCESS,
-  FETCH_EPISODES_SUCCESS,
-  FETCH_EPISODES
+  FETCH_SHOW_SUCCESS,
+  FETCH_SHOW
 } from "./types";
 import { Dispatch } from "redux";
 import { SearchResponses } from "../types";
@@ -26,20 +26,19 @@ export const fetchShows = (searchTerm: string) => async (
   });
 };
 
-export const fetchEpisodes = (showId: number) => async (dispatch: Dispatch) => {
+export const fetchShow = (showId: number) => async (dispatch: Dispatch) => {
   dispatch({
-    type: FETCH_EPISODES
+    type: FETCH_SHOW
   });
 
-  const episodes: SearchResponses = await fetch(
-    `${process.env.REACT_APP_API}shows/${showId}/episodes`
+  const show: SearchResponses = await fetch(
+    `${process.env.REACT_APP_API}shows/${showId}?embed=episodes`
   ).then(res => res.json());
 
   dispatch({
-    type: FETCH_EPISODES_SUCCESS,
+    type: FETCH_SHOW_SUCCESS,
     payload: {
-      episodes,
-      showId
+      show
     }
   });
 };

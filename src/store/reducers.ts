@@ -2,10 +2,11 @@ import {
   ShowsActionTypes,
   FETCH_SHOWS,
   FETCH_SHOWS_SUCCESS,
-  FETCH_SHOWS_FAILED
+  FETCH_SHOWS_FAILED,
+  FETCH_SHOW_SUCCESS
 } from "./types";
 import { RootState } from ".";
-import { SearchResponses, SearchResponse, Episodes } from "../types";
+import { SearchResponses, SearchResponse } from "../types";
 
 interface State {
   fetching: boolean;
@@ -40,6 +41,13 @@ export function showsReducer(state = initialState, action: ShowsActionTypes) {
         fetching: false,
         error: true,
         items: []
+      };
+    }
+    case FETCH_SHOW_SUCCESS: {
+      return {
+        error: false,
+        fetching: false,
+        items: [...state.items, { score: 0, show: action.payload.show }]
       };
     }
     default: {

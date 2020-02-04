@@ -5,9 +5,8 @@ import { selectShow } from "../../store/reducers";
 import styled from "styled-components";
 import Title from "../title/Title";
 import List from "../list/List";
-import { fetchEpisodes } from "../../store/actions";
+import { fetchShow } from "../../store/actions";
 import { selectEpisodes } from "../../store/episodesReducer";
-import ListItem from "../list/ListItem";
 import { Episode } from "../../types";
 
 const Container = styled.div`
@@ -18,6 +17,21 @@ const Container = styled.div`
 
 const Description = styled.div``;
 
+const Image = styled.img`
+  width: 440px;
+  height: 500px;
+
+  @media (max-width: 768px) {
+    width: 220px;
+    height: 225px;
+  }
+`;
+
+const TextContainer = styled.div``;
+
+const TextImageContainer = styled.div`
+  display: flex;
+`;
 const Show = () => {
   const { id } = useParams();
 
@@ -30,13 +44,10 @@ const Show = () => {
   const episodes = useSelector(selectEpisodes(showId));
 
   useEffect(() => {
-    dispatch(fetchEpisodes(showId));
+    dispatch(fetchShow(showId));
   }, [showId]);
 
-  // response will be empty when you access show url directly
-  // because they are being fetched in the /shows
-  // should check if fetched, otherwise fetch here (again);
-  if (!episodes || !response) {
+  if (!response || !episodes) {
     return <h1>Loading</h1>;
   }
 
@@ -44,8 +55,13 @@ const Show = () => {
 
   return (
     <Container>
-      <Title>{show.name}</Title>
-      <Description dangerouslySetInnerHTML={{ __html: show.summary }} />
+      <TextImageContainer>
+        <TextContainer>
+          <Title>{show.name}</Title>
+          <Description dangerouslySetInnerHTML={{ __html: show.summary }} />
+        </TextContainer>
+        <Image width={440} height={500} src={show.image.original} />
+      </TextImageContainer>
       <List items={episodes.map(episodeToListItem(pathname))} />
     </Container>
   );

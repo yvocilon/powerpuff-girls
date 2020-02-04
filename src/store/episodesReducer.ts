@@ -1,8 +1,8 @@
 import {
   ShowsActionTypes,
-  FETCH_EPISODES,
-  FETCH_EPISODES_SUCCESS,
-  FETCH_EPISODES_FAILED
+  FETCH_SHOW,
+  FETCH_SHOW_SUCCESS,
+  FETCH_SHOW_FAILED
 } from "./types";
 import { RootState } from ".";
 import { Episodes } from "../types";
@@ -26,21 +26,23 @@ export function episodesReducer(
   action: ShowsActionTypes
 ) {
   switch (action.type) {
-    case FETCH_EPISODES: {
+    case FETCH_SHOW: {
       return {
         fetching: true,
         error: false,
         items: {}
       };
     }
-    case FETCH_EPISODES_SUCCESS: {
+    case FETCH_SHOW_SUCCESS: {
       return {
         fetching: false,
         error: false,
-        items: { [action.payload.showId]: [...action.payload.episodes] }
+        items: {
+          [action.payload.show.id]: [...action.payload.show._embedded.episodes]
+        }
       };
     }
-    case FETCH_EPISODES_FAILED: {
+    case FETCH_SHOW_FAILED: {
       return {
         fetching: false,
         error: true,

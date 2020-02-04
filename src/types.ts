@@ -17,6 +17,9 @@ export interface Show {
   };
   summary: string;
   image: Image;
+  _embedded: {
+    episodes: Episodes;
+  };
 }
 
 export interface Episode {
