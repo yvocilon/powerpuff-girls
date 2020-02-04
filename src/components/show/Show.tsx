@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectShow } from "../../store/reducers";
 import styled from "styled-components";
@@ -22,6 +22,7 @@ const Show = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const showId = parseInt(id as string, 10);
 
@@ -45,7 +46,7 @@ const Show = () => {
     <Container>
       <Title>{show.name}</Title>
       <Description dangerouslySetInnerHTML={{ __html: show.summary }} />
-      <List items={episodes.map(episodeToListItem)} />
+      <List items={episodes.map(episodeToListItem(pathname))} />
     </Container>
   );
 };
@@ -58,14 +59,18 @@ function createEpisodeName(episode: Episode) {
   }`;
 }
 
-function episodeToListItem(episode: Episode): ListItem {
-  return {
+function createEpisodeRoute(prefix: string, episode: Episode) {
+  return `${prefix}/episodes/${episode.id}/${episode.name}`;
+}
+
+function episodeToListItem(currentPath: string) {
+  return (episode: Episode) => ({
     id: episode.id,
     title: createEpisodeName(episode),
     description: episode.summary,
-    route: "",
+    route: createEpisodeRoute(currentPath, episode),
     icon: episode.image?.medium || ""
-  };
+  });
 }
 
 export default Show;
