@@ -8,7 +8,9 @@ interface Props {
   items: List;
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding: 15px 0;
+`;
 
 const List: React.SFC<Props> = ({ items }) => {
   return (

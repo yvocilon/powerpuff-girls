@@ -15,6 +15,10 @@ const Wrapper = styled.div`
   padding: 15px;
 `;
 
+const Input = styled(DebounceInput)`
+  font-size: 20px;
+`;
+
 const Shows = () => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchterm] = useState("");
@@ -28,7 +32,7 @@ const Shows = () => {
   return (
     <Wrapper>
       <Title>Shows</Title>
-      <DebounceInput
+      <Input
         value={searchTerm}
         minLength={2}
         debounceTimeout={300}
