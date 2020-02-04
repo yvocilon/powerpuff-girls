@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App = () => (
+const App: React.SFC = () => (
   <Router>
     <Provider store={store}>
       <GlobalStyle />

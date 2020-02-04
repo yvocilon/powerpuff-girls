@@ -1,4 +1,5 @@
-import { SearchResponses, Episodes, Show } from "../types";
+import { Show } from "../types/types";
+import { Shows } from "../types/types";
 
 export const FETCH_SHOWS = "FETCH_SHOWS";
 export const FETCH_SHOWS_SUCCESS = "FETCH_SHOWS_SUCCESS";
@@ -18,7 +19,7 @@ interface FetchShowsAction {
 interface FetchShowsSuccessAction {
   type: typeof FETCH_SHOWS_SUCCESS;
   payload: {
-    shows: SearchResponses;
+    shows: Shows;
   };
 }
 

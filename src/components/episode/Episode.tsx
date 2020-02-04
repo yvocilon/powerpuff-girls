@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectEpisode } from "../../store/episodesReducer";
 import Container from "../container/Container";
 import TextImageHeader from "../text-image-header/TextImageHeader";
+import { selectEpisode } from "../../store/showsReducer";
 
 const Episode = () => {
   const { id, episodeId } = useParams();

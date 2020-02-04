@@ -1,12 +1,10 @@
-import { showsReducer } from "./reducers";
+import { showsReducer } from "./showsReducer";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { episodesReducer } from "./episodesReducer";
 
 export const rootReducer = combineReducers({
-  shows: showsReducer,
-  episodes: episodesReducer
+  shows: showsReducer
 });
 
 export const store = createStore(

@@ -4,9 +4,9 @@ import Title from "../title/Title";
 import List from "../list/List";
 import { useDispatch, useSelector } from "react-redux";
 import { DebounceInput } from "react-debounce-input";
-import { selectShows } from "../../store/reducers";
+import { selectShows } from "../../store/showsReducer";
 import { fetchShows } from "../../store/actions";
-import { Show, SearchResponse } from "../../types";
+import { Show } from "../../types/types";
 import ListItem from "../list/ListItem";
 
 const Wrapper = styled.div`
@@ -54,17 +54,17 @@ function createShowRoute(show: Show) {
   )}`;
 }
 
-function sortByScore(prev: SearchResponse, next: SearchResponse) {
+function sortByScore(prev: Show, next: Show) {
   return prev.score > next.score ? -1 : 1;
 }
 
-function showToListItem(searchResponse: SearchResponse): ListItem {
+function showToListItem(show: Show): ListItem {
   return {
-    id: searchResponse.show.id,
-    title: searchResponse.show.name,
-    description: searchResponse.show.summary,
-    icon: searchResponse.show.image?.medium || "",
-    route: createShowRoute(searchResponse.show)
+    id: show.id,
+    title: show.name,
+    description: show.summary,
+    icon: show.image?.medium || "",
+    route: createShowRoute(show)
   };
 }
 

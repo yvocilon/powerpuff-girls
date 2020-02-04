@@ -5,7 +5,9 @@ import {
   FETCH_SHOW
 } from "./types";
 import { Dispatch } from "redux";
-import { SearchResponses } from "../types";
+import { Show } from "../types/types";
+import { Shows } from "../types/types";
+import { ShowScoreResponse, ShowResponse } from "../types/responseTypes";
 
 export const fetchShows = (searchTerm: string) => async (
   dispatch: Dispatch
@@ -14,9 +16,11 @@ export const fetchShows = (searchTerm: string) => async (
     type: FETCH_SHOWS
   });
 
-  const shows: SearchResponses = await fetch(
+  const shows: Shows = await fetch(
     `${process.env.REACT_APP_API}search/shows?q=${searchTerm}`
-  ).then(res => res.json());
+  )
+    .then(res => res.json())
+    .then(res => res.map(mapResponseToShow));
 
   dispatch({
     type: FETCH_SHOWS_SUCCESS,
@@ -31,9 +35,11 @@ export const fetchShow = (showId: number) => async (dispatch: Dispatch) => {
     type: FETCH_SHOW
   });
 
-  const show: SearchResponses = await fetch(
+  const show: Show = await fetch(
     `${process.env.REACT_APP_API}shows/${showId}?embed=episodes`
-  ).then(res => res.json());
+  )
+    .then(res => res.json())
+    .then(res => mapShowResponseToShow(res));
 
   dispatch({
     type: FETCH_SHOW_SUCCESS,
@@ -42,3 +48,19 @@ export const fetchShow = (showId: number) => async (dispatch: Dispatch) => {
     }
   });
 };
+
+function mapShowResponseToShow(response: ShowResponse): Show {
+  return {
+    ...response,
+    score: 0,
+    episodes: response._embedded?.episodes
+  };
+}
+
+function mapResponseToShow(response: ShowScoreResponse): Show {
+  return {
+    ...response.show,
+    score: response.score,
+    episodes: response.show?._embedded?.episodes
+  };
+}

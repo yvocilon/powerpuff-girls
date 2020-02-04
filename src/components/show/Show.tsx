@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectShow } from "../../store/reducers";
-import styled from "styled-components";
+import { selectShow, selectEpisodes } from "../../store/showsReducer";
 import List from "../list/List";
 import { fetchShow } from "../../store/actions";
-import { selectEpisodes } from "../../store/episodesReducer";
-import { Episode } from "../../types";
+import { Episode } from "../../types/types";
 import TextImageHeader from "../text-image-header/TextImageHeader";
 import Container from "../container/Container";
 
@@ -18,18 +16,17 @@ const Show = () => {
 
   const showId = parseInt(id as string, 10);
 
-  const response = useSelector(selectShow(showId));
+  const show = useSelector(selectShow(showId));
   const episodes = useSelector(selectEpisodes(showId));
 
   useEffect(() => {
     dispatch(fetchShow(showId));
   }, [showId]);
 
-  if (!response || !episodes) {
+  if (!show || !episodes) {
+    console.log(show, episodes);
     return <h1>Loading</h1>;
   }
-
-  const { show } = response;
 
   return (
     <Container>

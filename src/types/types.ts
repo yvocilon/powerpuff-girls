@@ -1,5 +1,3 @@
-export type SearchResponses = SearchResponse[];
-
 export type Shows = ReadonlyArray<Show>;
 
 export type Episodes = ReadonlyArray<Episode>;
@@ -17,9 +15,8 @@ export interface Show {
   };
   summary: string;
   image: Image;
-  _embedded: {
-    episodes: Episodes;
-  };
+  score: number;
+  episodes?: Episodes;
 }
 
 export interface Episode {
@@ -29,9 +26,4 @@ export interface Episode {
   number: number;
   image: Image;
   summary: string;
-}
-
-export interface SearchResponse {
-  score: number;
-  show: Show;
 }
