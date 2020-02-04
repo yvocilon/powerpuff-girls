@@ -42,7 +42,7 @@ const Episode = () => {
       <TextImageHeader
         name={createEpisodeName(episode)}
         summary={episode.summary}
-        image={episode.image.original}
+        image={episode.image?.original}
       />
       {episodes && (
         <List

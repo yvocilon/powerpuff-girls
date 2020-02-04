@@ -31,9 +31,11 @@ const TextImageHeader: React.SFC<Props> = ({ name, summary, image }) => {
     <TextImageContainer>
       <TextContainer>
         <Title>{name}</Title>
-        <Description dangerouslySetInnerHTML={{ __html: summary }} />
+        {summary && (
+          <Description dangerouslySetInnerHTML={{ __html: summary }} />
+        )}
       </TextContainer>
-      <Image width={440} height={500} src={image} />
+      {image && <Image width={440} height={500} src={image} />}
     </TextImageContainer>
   );
 };
