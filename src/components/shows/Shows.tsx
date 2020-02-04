@@ -23,6 +23,24 @@ const Input = styled(DebounceInput)`
   margin: 10px 0;
 `;
 
+const suggestions = [
+  "Powerpuff Girls",
+  "Psych",
+  "The Walking Dead",
+  "The Witcher"
+];
+
+const Suggestion = styled.button`
+  background-color: lightblue;
+  border: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 15px;
+  margin: 5px 15px 5px 0;
+  display: inline-block;
+  cursor: pointer;
+`;
+
 const Shows = () => {
   const history = useHistory();
   const { search } = useLocation();
@@ -30,11 +48,19 @@ const Shows = () => {
   const shows = useSelector(selectShows);
   const searchTerm = useSelector(selectSearchTerm);
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(fetchShows(event.target.value));
+  const fetch = (search: string) => {
+    dispatch(fetchShows(search));
     history.push({
-      search: "?q=" + event.target.value
+      search: "?q=" + search
     });
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fetch(event.target.value);
+  };
+
+  const suggest = (suggestion: string) => () => {
+    fetch(suggestion);
   };
 
   useEffect(() => {
@@ -54,6 +80,10 @@ const Shows = () => {
         debounceTimeout={300}
         onChange={onChange}
       />
+      <span>Suggestions: </span>
+      {suggestions.map(suggestion => (
+        <Suggestion onClick={suggest(suggestion)}>{suggestion}</Suggestion>
+      ))}
       <List
         items={shows
           .slice()
