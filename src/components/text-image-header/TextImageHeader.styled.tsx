@@ -15,6 +15,6 @@ export const Image = styled.img`
 
   @media (max-width: 768px) {
     width: 220px;
-    height: 225px;
+    height: 250px;
   }
 `;

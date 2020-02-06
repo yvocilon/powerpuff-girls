@@ -9,6 +9,7 @@ import ListItem from "../list/ListItem";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import { Wrapper, Input, Suggestion } from "./Shows.styled";
+import slugify from "slugify";
 
 export const suggestions = [
   "Powerpuff Girls",
@@ -27,7 +28,7 @@ const Shows = () => {
   const fetch = (search: string) => {
     dispatch(fetchShows(search));
     history.push({
-      search: "?q=" + search
+      search: "?q=" + encodeURIComponent(search)
     });
   };
 
@@ -43,7 +44,7 @@ const Shows = () => {
     const { q } = queryString.parse(search);
 
     if (q) {
-      dispatch(fetchShows(q as string));
+      dispatch(fetchShows(decodeURIComponent(q as string)));
     }
   }, []);
 
@@ -73,9 +74,7 @@ const Shows = () => {
 };
 
 export function createShowRoute(show: Show) {
-  return `/shows/${encodeURIComponent(show.id)}/${encodeURIComponent(
-    show.name
-  )}`;
+  return `/shows/${show.id}/${slugify(show.name)}`;
 }
 
 function sortByScore(prev: Show, next: Show) {

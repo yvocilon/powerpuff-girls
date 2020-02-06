@@ -9,6 +9,7 @@ import TextImageHeader from "../text-image-header/TextImageHeader";
 import Container from "../container/Container";
 import { Show as ShowType } from "../../types/types";
 import { createShowRoute } from "../shows/Shows";
+import slugify from "slugify";
 
 const Show = () => {
   const { id } = useParams();
@@ -48,7 +49,7 @@ export function createEpisodeName(episode: Episode) {
 }
 
 function createEpisodeRoute(prefix: string, episode: Episode) {
-  return `${prefix}/${episode.id}/${episode.name}`;
+  return `${prefix}/${episode.id}/${slugify(episode.name)}`;
 }
 
 export function episodeToListItem(show: ShowType) {
