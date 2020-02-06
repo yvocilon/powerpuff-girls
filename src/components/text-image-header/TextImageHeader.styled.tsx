@@ -10,11 +10,10 @@ export const TextImageContainer = styled.div`
 export const Description = styled.div``;
 
 export const Image = styled.img`
-  width: 440px;
-  height: 500px;
-
+  max-width: 500px;
+  height: auto;
   @media (max-width: 768px) {
-    width: 220px;
-    height: 250px;
+    max-width: 200px;
+    height: auto;
   }
 `;
